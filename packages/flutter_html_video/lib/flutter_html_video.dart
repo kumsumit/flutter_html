@@ -84,7 +84,7 @@ class _VideoWidgetState extends State<VideoWidget> {
           break;
         default:
           _videoController =
-              VideoPlayerController.network(sourceUri.toString());
+              VideoPlayerController.networkUrl(Uri.parse( sourceUri.toString()));
           break;
       }
       _chewieController = ChewieController(

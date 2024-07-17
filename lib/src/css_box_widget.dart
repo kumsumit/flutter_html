@@ -81,7 +81,7 @@ class CssBoxWidget extends StatelessWidget {
           child: top
               ? child
               : MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
                   child: child,
                 ),
         ),
@@ -179,8 +179,7 @@ class CssBoxWidget extends StatelessWidget {
 }
 
 class _CSSBoxRenderer extends MultiChildRenderObjectWidget {
-  _CSSBoxRenderer({
-    Key? key,
+  const _CSSBoxRenderer({
     required super.children,
     required this.display,
     required this.margins,
@@ -192,7 +191,7 @@ class _CSSBoxRenderer extends MultiChildRenderObjectWidget {
     required this.childIsReplaced,
     required this.emValue,
     required this.shrinkWrap,
-  }) : super(key: key);
+  });
 
   /// The Display type of the element
   final Display display;
@@ -768,8 +767,8 @@ extension Normalize on Dimension {
 }
 
 double _calculateEmValue(Style style, BuildContext buildContext) {
-  return (style.fontSize?.emValue ?? 16) *
-      MediaQuery.textScaleFactorOf(buildContext) *
+  return 
+      MediaQuery.textScalerOf(buildContext).scale(style.fontSize?.emValue ?? 16) *
       MediaQuery.of(buildContext).devicePixelRatio;
 }
 
